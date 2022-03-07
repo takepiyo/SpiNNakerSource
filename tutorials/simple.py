@@ -2,7 +2,7 @@ import pyNN.spiNNaker as sim
 import pyNN.utility.plotting as plot
 import matplotlib.pyplot as plt
 
-sim.setup(timestep=1.0)
+sim.setup()
 sim.set_number_of_neurons_per_core(sim.IF_curr_exp, 100)
 
 pop_1 = sim.Population(1, sim.IF_curr_exp(), label="pop_1")
