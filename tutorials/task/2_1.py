@@ -3,10 +3,10 @@ from pyNN.utility.plotting import Figure, Panel
 import matplotlib.pyplot as plt
 
 sim.setup(timestep=1.0)
-nNeurons = 100
-sim.set_number_of_neurons_per_core(sim.IF_curr_exp, nNeurons)
+n_neurons = 100
+sim.set_number_of_neurons_per_core(sim.IF_curr_exp, n_neurons)
 
-pop = sim.Population(nNeurons, sim.IF_curr_exp(), label="pop")
+pop = sim.Population(n_neurons, sim.IF_curr_exp(), label="pop")
 input = sim.Population(1, sim.SpikeSourceArray(spike_times=[0]), label="input")
 
 input_to_pop_weight = 5
@@ -17,8 +17,8 @@ pop_to_pop_delay = 5
 sim.Projection(input, pop, sim.FromListConnector(
     [(0, 0, input_to_pop_weight, input_to_pop_delay)], column_names=('weight', 'delay')), synapse_type=sim.StaticSynapse(weight=input_to_pop_weight, delay=input_to_pop_delay))
 
-sim.Projection(pop, pop, sim.FromListConnector([(i, (i + 1) % nNeurons, pop_to_pop_weight, pop_to_pop_delay) for i in range(
-    nNeurons)], column_names=("weight", "delay")), synapse_type=sim.StaticSynapse(weight=pop_to_pop_weight, delay=pop_to_pop_delay))
+sim.Projection(pop, pop, sim.FromListConnector([(i, (i + 1) % n_neurons, pop_to_pop_weight, pop_to_pop_delay) for i in range(
+    n_neurons)], column_names=("weight", "delay")), synapse_type=sim.StaticSynapse(weight=pop_to_pop_weight, delay=pop_to_pop_delay))
 pop.record("spikes")
 
 simtime = 2 * 1000
