@@ -1,6 +1,5 @@
-from cProfile import label
 import pyNN.spiNNaker as sim
-import pyNN.utility.plotting as plot
+from pyNN.utility.plotting import Figure, Panel
 import matplotlib.pyplot as plt
 
 sim.setup(timestep=1.0)
@@ -13,17 +12,25 @@ input_proj = sim.Projection(input, pop, sim.OneToOneConnector(
 ), synapse_type=sim.StaticSynapse(weight=5.0, delay=2))
 
 pop.record(["spikes", "v"])
-input.record(["spikes"])
 
 simtime = 10
 sim.run(simtime)
 
-neo_pop = pop.get_data(variables=["spikes", "v"])
-neo_input = input.get_data(variables=["spikes"])
+v = pop.get_data("v")
+spikes = pop.get_data("spikes")
 
-# v_pop = [neo_pop.segments[0].filter(name="v")[0] for i in range(2)]
-# v_input = [neo_input.segments[i].spiketrains for i in range(2)]
+print(v.segments[0].filter(name="v"))
+print(spikes.segments[0].spiketrains)
 
-print(neo_pop.segments[0].filter(name="v"))
-print(neo_pop.segments[0].spiketrains)
-print(neo_input.segments[0].spiketrains)
+figure_filename = "results.png"
+figure = Figure(
+    Panel(spikes.segments[0].spiketrains, yticks=True,
+          markersize=0.2, xlim=(0, simtime)),
+    Panel(v.segments[0].filter(name="v")[0], ylabel="Membrane potential (mV)", data_labels=[
+          pop.label], yticks=True, xlim=(0, simtime)),
+    title="Task 1-1",
+    annotations="Simulated with {}".format(sim.name())
+)
+figure.save(figure_filename)
+
+sim.end()
