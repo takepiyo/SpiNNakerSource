@@ -55,7 +55,7 @@ figure_filename = "results.png"
 figure = Figure(
     Panel(spikes.segments[0].spiketrains, yticks=True,
           markersize=1.0, xlim=(0, simtime)),
-    title="Task 3-1",
+    title="Task 3-2",
     annotations="Simulated with {}".format(p.name())
 )
 figure.save(figure_filename)
