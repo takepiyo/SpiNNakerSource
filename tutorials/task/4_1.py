@@ -25,7 +25,7 @@ input = p.Population(2, p.SpikeSourceArray(
 p.Projection(input, pre_pop, p.FromListConnector([(0, 0, 5.0, 1.0)]))
 p.Projection(input, post_pop, p.FromListConnector([(1, 0, 5.0, 1.0)]))
 
-stdp_model = p.STDPMechanism(timing_dependence=p.SpikePairRule(tau_plus=20.0, tau_minus=20.0, A_plus=0.02, A_minus=0.02),
+stdp_model = p.STDPMechanism(timing_dependence=p.SpikePairRule(tau_plus=20.0, tau_minus=20.0, A_plus=0.2, A_minus=0.2),
                              weight_dependence=p.AdditiveWeightDependence(w_min=0.0, w_max=5.0), weight=0.0, delay=1.0)
 
 stdp_proj = p.Projection(
