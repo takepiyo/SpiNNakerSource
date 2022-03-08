@@ -1,3 +1,4 @@
+from cgi import test
 import spynnaker8 as p
 from pyNN.random import RandomDistribution
 from pyNN.utility.plotting import Figure, Panel
@@ -8,11 +9,13 @@ import random
 p.setup(timestep=1.0)
 p.set_number_of_neurons_per_core(p.IF_curr_exp, 100)
 
-simtime = 1200
+train_time = 400
+test_time = 200
+simtime = train_time + test_time
 
-pre_stim_time = [10 * i for i in range(100)]
-pre_stim_time.extend([1050, 1075, 1100, 1125, 1150])
-post_stim_time = [10 * i + random.randint(-1, 4) for i in range(100)]
+pre_stim_time = [10 * i for i in range(int(train_time / 10))]
+pre_stim_time.extend(map(lambda x: x + train_time, [20, 40, 60, 80, 100]))
+post_stim_time = [10 * i + 2 for i in range(int(train_time / 10))]
 
 pre_pop = p.Population(1, p.IF_curr_exp, label="pre")
 post_pop = p.Population(1, p.IF_curr_exp, label="post")
