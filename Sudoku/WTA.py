@@ -9,8 +9,8 @@ import random
 p.setup(timestep=1.0)
 p.set_number_of_neurons_per_core(IFCondExpStoc, 100)
 
-exc = p.Population(10, IFCondExpStoc, label="exc")
-inh = p.Population(1, IFCondExpStoc, label="inh")
+exc = p.Population(10, IFCondExpStoc(), label="exc")
+inh = p.Population(1, IFCondExpStoc(), label="inh")
 
 input = p.Population(2, p.SpikeSourceArray(
     [[5.0, 25.0], [15.0, 35.0]]), label="input")
@@ -37,5 +37,5 @@ figure = Figure(
     annotations="Simulated with {}".format(p.name())
 )
 figure.save(figure_filename)
-plt.show()
+# plt.show()
 p.end()

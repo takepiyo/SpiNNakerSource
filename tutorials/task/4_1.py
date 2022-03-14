@@ -1,4 +1,3 @@
-from cgi import test
 import spynnaker8 as p
 from pyNN.random import RandomDistribution
 from pyNN.utility.plotting import Figure, Panel

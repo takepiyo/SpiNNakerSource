@@ -43,7 +43,7 @@ p.run(simtime)
 
 weights = stdp_proj.get(["weight"], "list")
 final_weights = np.array([w[-1] for w in weights])
-deltas = np.arange(-50, 50)
+deltas = np.arange(-50, 50, -1)
 plasticity_data = DataTable(deltas, final_weights)
 
 print("Weights:{}".format(stdp_proj.get('weight', 'list')))
